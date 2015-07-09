@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @video.title %>
+</p>
+
+<p>
+  <strong>Image url:</strong>
+  <%= @video.image_url %>
+</p>
+
+<p>
+  <strong>Rating:</strong>
+  <%= @video.rating %>
+</p>
+
+<p>
+  <strong>Video url:</strong>
+  <%= @video.video_url %>
+</p>
+
+<p>
+  <strong>Duration:</strong>
+  <%= @video.duration %>
+</p>
+
+<p>
+  <strong>Hand picked:</strong>
+  <%= @video.hand_picked %>
+</p>
+
+<%= link_to 'Edit', edit_video_path(@video) %> |
+<%= link_to 'Back', videos_path %>

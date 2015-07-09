@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  image_url: MyString
+  rating: 9.99
+  video_url: MyString
+  duration: 9.99
+  hand_picked: false
+
+two:
+  title: MyString
+  image_url: MyString
+  rating: 9.99
+  video_url: MyString
+  duration: 9.99
+  hand_picked: false
