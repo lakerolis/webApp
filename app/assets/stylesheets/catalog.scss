@@ -1,0 +1,58 @@
+// Place all the styles related to the Catalog controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#header-list{
+  margin:0 auto;
+  text-align: center;
+}
+
+.gh-tab{
+  width: 15%;
+  font-size: 20px;
+  font-family: "Helvetica Neue", Arial, "Lucida Grande", sans-serif;
+  display: inline-block;
+  color: white;
+  font-weight: 100;
+  padding-top: 8px;
+}
+
+ #global-header{
+   height: 40px;
+   background-color: #2E2F30;
+ }
+
+ #promo{
+   height: 300px;
+   background-color: #f0f0f0;
+ }
+
+ .li-video{
+   width: 200px;
+   height: 190px;
+   background-color: #f0f0f0;
+   padding: 10px 10px 20px 10px;
+   float: left;
+   list-style-type: none;
+   margin: 1px;
+
+   img{
+     display: block;
+     margin-left: auto;
+     margin-right: auto;
+   }
+
+ }
+
+.video_title{
+  color: #656565;
+  padding-left: 8px;
+  margin-bottom: 0px;
+  font-weight: 200;
+  font-family: "Helvetica Neue", Arial, "Lucida Grande", sans-serif;
+}
+
+.rating{
+  margin-top: 5px;
+  padding-left: 8px;
+}

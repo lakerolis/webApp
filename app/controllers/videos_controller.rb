@@ -5,6 +5,55 @@ class VideosController < ApplicationController
   # GET /videos.json
   def index
     @videos = Video.all
+
+    if params['updatecatalog'] == '1'
+      require 'open-uri'
+      require 'nokogiri'
+
+      videos = Array.new
+      raw_video_list = Array.new
+
+      doc = Nokogiri::HTML(open('http://www.tubegalore.com/Amateur%257CAmatuer%257CAmature-tube/5457-1/page0/rating/'))
+      doc.css('div.itemContainerSub.sub').each do |video_html|
+        raw_video_list << video_html
+      end
+
+      raw_video_list.each do |video_data|
+        video = Video.new
+
+        # video link
+        link = video_data.css('.imgContainer a').map{|link| link['href']}
+        link = link.to_s
+        temp = 'http://' << link.split('http://')[1]
+        unless link.include?('pornxs') || link.include?('pornhub')
+          video.video_url = temp.split('?')[0]
+        else
+          video.video_url = temp.split('&')[0]
+        end
+        # title
+        data = video_data.css('.title')
+        video.title = data.text
+        # rating
+        data = video_data.css('.rating').map{|rating| rating['value']}
+        video.rating = data[0].to_i
+        # image_url
+        data = video_data.css('.imgContainer a img').map{|img| img['src']}
+        video.image_url = data[0]
+        # duration
+        data = video_data.css('.length')
+        video.duration = data.text
+        # handpicked
+        video.hand_picked = false
+
+        videos << video
+      end
+      # videos.each{|video| video.save}
+      videos.each do|video|
+        catalog_item = Video.find_or_initialize_by(title: video.title)
+        catalog_item.update(title: video.title, video_url:video.video_url, image_url: video.image_url, rating: video.rating, duration: video.duration, hand_picked: video.hand_picked)
+      end
+      # videos.each{|video| Video.find_or_create_by(video_url: video.video_url)}
+    end
   end
 
   # GET /videos/1
@@ -62,13 +111,13 @@ class VideosController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_video
-      @video = Video.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_video
+    @video = Video.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def video_params
-      params.require(:video).permit(:title, :image_url, :rating, :video_url, :duration, :hand_picked)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def video_params
+    params.require(:video).permit(:title, :image_url, :rating, :video_url, :duration, :hand_picked)
+  end
 end
